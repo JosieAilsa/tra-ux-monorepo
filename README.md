@@ -3,6 +3,8 @@
 - A rebuild of square space portfolio - except it doesn't cost £15 a month!
 - Using this to learn Nuxt and TypeScript in the process 😅
 - Built from using [Nuxt](https://nuxt.com/) for the front end and [Sanity](https://www.sanity.io/) to handle its content, from a template developed by the sanity team.
+(What I'm working toward ...)
+<img width="973" alt="image" src="https://github.com/user-attachments/assets/d89f0b8a-6b47-4fc3-a574-1dced8378069">
 
 ## Getting started
 
