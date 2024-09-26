@@ -20,6 +20,8 @@ defineProps<{ post: Post }>()
       <h3 class="card__title">{{ post.title }}</h3>
       <p class="card__excerpt">{{ post.excerpt }}</p>
       <p class="card__date">{{ formatDate(post._createdAt) }}</p>
+      <v-btn>Click me</v-btn>
+
     </div>
   </NuxtLink>
 </template>

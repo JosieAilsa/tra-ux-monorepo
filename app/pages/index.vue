@@ -8,6 +8,5 @@ const { data: posts } = await useSanityQuery<Post[]>(query)
 <template>
   <section>
     <Card v-for="post in posts || []" :key="post._id" :post="post" />
-    <Welcome v-if="!posts?.length" />
   </section>
 </template>

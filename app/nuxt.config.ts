@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/sanity',
@@ -14,6 +15,12 @@ export default defineNuxtConfig({
         },
       },
     ],
+    (_options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig', (config) => {
+        // @ts-expect-error
+        config.plugins.push(vuetify({ autoImport: true }))
+      })
+    },
   ],
   sanity: {
     projectId: process.env.NUXT_SANITY_PROJECT_ID,
@@ -32,4 +39,16 @@ export default defineNuxtConfig({
       'postcss-nested': {},
     },
   },
+  build: {
+    transpile: ['vuetify'],
+  },
+  plugins: ['~/plugins/vuetify.js'],
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
+    },
+  },
+  compatibilityDate: '2024-09-20',
 })

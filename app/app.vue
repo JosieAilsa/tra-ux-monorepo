@@ -8,12 +8,14 @@
     <span>Disable Preview</span>
   </a>
 
+  <header class="header">
+    <nav-bar></nav-bar>
+  </header>
   <div class="container">
-    <header class="header">
-      <a class="header__title" href="/">Nuxt + Sanity</a>
-    </header>
     <main>
-      <NuxtPage />
+      <v-app>
+        <NuxtPage />
+      </v-app>
     </main>
     <footer class="footer">
       <p class="footer__text">
