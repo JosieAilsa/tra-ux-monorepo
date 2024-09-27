@@ -7,11 +7,10 @@
     <span>Preview Enabled</span>
     <span>Disable Preview</span>
   </a>
-
-  <header class="header">
-    <nav-bar></nav-bar>
-  </header>
   <div class="container">
+    <header class="header">
+      <nav-bar></nav-bar>
+    </header>
     <main>
       <v-app>
         <NuxtPage />
