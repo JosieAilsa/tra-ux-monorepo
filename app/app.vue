@@ -7,10 +7,10 @@
     <span>Preview Enabled</span>
     <span>Disable Preview</span>
   </a>
-  <div class="container">
     <header class="header">
       <nav-bar></nav-bar>
     </header>
+  <div class="container">
     <main>
       <v-app>
         <NuxtPage />
@@ -39,7 +39,6 @@
     </footer>
   </div>
 </template>
-
 <script setup lang="ts">
 const route = useRoute()
 const { enabled: previewEnabled, inFrame } = useSanityVisualEditingState()

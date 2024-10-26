@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/sanity',
@@ -39,8 +39,10 @@ export default defineNuxtConfig({
       'postcss-nested': {},
     },
   },
+  css: ['~/assets/scss/main.scss'],
   build: {
     transpile: ['vuetify'],
+    loaders: ['scss'],
   },
   plugins: ['~/plugins/vuetify.js'],
   vite: {
