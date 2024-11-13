@@ -35,9 +35,10 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'modules',
+      title: 'Modules',
+      type: 'array',
+      of: [{ type: 'blockObject' }],
     }),
   ],
   preview: {

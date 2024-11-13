@@ -23,8 +23,11 @@ const { data: post } = await useSanityQuery<Post>(query, {
       <h1 class="post__title">{{ post.title }}</h1>
       <p class="post__excerpt">{{ post.excerpt }}</p>
       <p class="post__date">{{ formatDate(post._createdAt) }}</p>
-      <div v-if="post.body" class="post__content">
-        <PortableText :value="post.body" />
+      <p>{{ post }}</p>
+      <div v-if="post.Body" class="post__content">
+        <div v-for="content in post.Body">
+          <PortableText :value="content.content" /> 
+        </div>
       </div>
     </div>
   </section>

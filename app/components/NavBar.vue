@@ -11,8 +11,8 @@
       </div>
       <nav class="d-flex justify-space-around flex-row d-sm-none d-md-none d-lg-flex nav__list">
         <v-list v-if="showMenu" key="page" class="d-flex flex-row justify-space-around w-100">
-          <v-list-item-title v-for="(page, i) in pages" :key="page" class="ml-2 mr-2 d-flex flex-row align-center">
-            <a :href="`/${tag[i]}`" class="text-decoration-none"> {{ page }} </a>
+          <v-list-item-title v-for="page in pages" :key="page" class="ml-2 mr-2 d-flex flex-row align-center">
+            <a :href="`/${(page.toLowerCase())}`" class="text-decoration-none"> {{ page }} </a>
           </v-list-item-title>
         </v-list>
       </nav>
@@ -24,8 +24,7 @@ const showMenu = ref(true)
 const handleClick = () => {
   showMenu.value = !showMenu.value
 }
-const pages = ['Product design', 'Content design', 'About', 'Contact']
-const tag = ['product', 'content', 'about', 'contact']
+const pages = ['Work', 'About', 'Contact']
 </script>
 <style lang="scss">
 .nav-header {
