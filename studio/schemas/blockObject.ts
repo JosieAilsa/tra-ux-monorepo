@@ -1,5 +1,5 @@
 
-import { defineArrayMember } from "sanity";
+import { defineType, defineArrayMember } from "sanity";
 const blog = [
     defineArrayMember({
         title: 'Block',
@@ -47,7 +47,7 @@ const blog = [
         options: { hotspot: true },
     })
 ];
-export default {
+export default defineType({
     title: "Block",
     name: "blockObject",
     type: "object",
@@ -59,4 +59,4 @@ export default {
             of: blog,
         },
     ],
-};
+});
