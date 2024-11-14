@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Post } from '~/types/Post'
 import { PortableText } from '@portabletext/vue'
-import { computed } from "vue";
+import { computed, watch, ref } from "vue";
 const route = useRoute()
 
 const query = groq`*[ _type == "post" && slug.current == $slug][0]`
@@ -10,13 +10,21 @@ const { data: post } = await useSanityQuery<Post>(query, {
 })
 const { modules } = post.value; 
 
-const moduleHasImage = (module) => {
+const moduleHasImage = (module: { content: any[] }) => {
   return module.content[0]._type === 'image';
 }
 
-const getContent = (module) => {
-  return moduleHasImage(module) ? module.content[1] : module.content[0];
+const getContent = (module: { content: any[] }) => {
+  return module.content[module.content.length - 1];
 }
+ 
+const overlay = ref<boolean>(false);
+
+watch(() => overlay, (newOverlay) => {
+  newOverlay && setTimeout(() => {
+    overlay.value = false;
+  }, 300);
+})
 
 </script>
 
@@ -33,12 +41,16 @@ const getContent = (module) => {
       <h1 class="post__title">{{ post.title }}</h1>
       <p class="post__excerpt">{{ post.excerpt }}</p>
       <p class="post__date">{{ formatDate(post._createdAt) }}</p>
-      <p>{{ post.modules }}</p>
       <div v-if="modules" class="post__content">
-        <div v-for="module in post.modules" :key="module._key">
-          <p>{{ module?.content[0] }}</p>
-          <img v-if="moduleHasImage(module)" :src="$urlFor(module.content[0].asset).width(1920).url()" alt="Cover image" />
+        <div v-for="module in post.modules" class="module" :key="module._key">
           <PortableText :value="getContent(module)" /> 
+          <img 
+            v-if="moduleHasImage(module)" 
+            :src="$urlFor(module.content[0].asset).width(1920).url()" 
+            alt="Cover image" 
+            @click="overlay = !overlay"
+            />
+          <v-divider></v-divider>
         </div>
       </div>
     </div>
@@ -72,6 +84,12 @@ const getContent = (module) => {
     line-height: var(--line-height-5);
     letter-spacing: -0.02em;
     margin-top: var(--space-6);
+
+    & img {
+      width: 100%;
+      height: auto;
+      margin-bottom: var(--space-4);
+    }
 
     /* Targeting tags in PortableText */
     & blockquote {
