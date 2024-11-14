@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { type Post } from '~/types/Post'
 import { PortableText } from '@portabletext/vue'
-
+import { computed } from "vue";
 const route = useRoute()
 
 const query = groq`*[ _type == "post" && slug.current == $slug][0]`
 const { data: post } = await useSanityQuery<Post>(query, {
   slug: route.params.slug,
 })
+const { modules } = post.value; 
+
+const moduleHasImage = (module) => {
+  return module.content[0]._type === 'image';
+}
+
+const getContent = (module) => {
+  return moduleHasImage(module) ? module.content[1] : module.content[0];
+}
+
 </script>
 
 <template>
@@ -23,10 +33,12 @@ const { data: post } = await useSanityQuery<Post>(query, {
       <h1 class="post__title">{{ post.title }}</h1>
       <p class="post__excerpt">{{ post.excerpt }}</p>
       <p class="post__date">{{ formatDate(post._createdAt) }}</p>
-      <p>{{ post }}</p>
-      <div v-if="post.Body" class="post__content">
-        <div v-for="content in post.Body">
-          <PortableText :value="content.content" /> 
+      <p>{{ post.modules }}</p>
+      <div v-if="modules" class="post__content">
+        <div v-for="module in post.modules" :key="module._key">
+          <p>{{ module?.content[0] }}</p>
+          <img v-if="moduleHasImage(module)" :src="$urlFor(module.content[0].asset).width(1920).url()" alt="Cover image" />
+          <PortableText :value="getContent(module)" /> 
         </div>
       </div>
     </div>
