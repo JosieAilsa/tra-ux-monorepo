@@ -35,9 +35,24 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: "myTags",
+      title: 'Tags',
+      type: 'tags',
+      options: {
+        predefinedTags: [
+          { label: 'Product', value: 'product' },
+          { label: 'Content', value: 'content' },
+          { label: 'UI Design', value: 'design' },
+          { label: 'Native app design', value: 'app-design' },
+          { label: 'User Research', value: 'design' },
+        ]
+      }
+    }),
+    defineField({
+      name: 'modules',
+      title: 'Modules',
+      type: 'array',
+      of: [{ type: 'blockObject' }],
     }),
   ],
   preview: {
